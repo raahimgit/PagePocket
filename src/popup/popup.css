@@ -1,0 +1,16 @@
+body { box-sizing: border-box; width: 380px; padding: 12px; }
+header { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+h1 { font-size: 15px; margin: 0; }
+#status { min-height: 1.5em; margin: 6px 0; }
+#page-title { font-weight: 600; margin: 8px 0 0; overflow-wrap: anywhere; }
+#page-url { margin: 0; font-size: 12px; overflow-wrap: anywhere; }
+.row label { min-width: 4.5rem; }
+.row select, .row input { flex: 1; min-width: 0; }
+.primary { background: var(--accent); color: var(--bg); border-color: var(--accent); font-weight: 600; }
+.hint { font-size: 12px; margin: 0 0 6px; }
+details { margin: 6px 0; }
+summary { cursor: pointer; padding: 2px 0; }
+ul { list-style: none; margin: 4px 0 0; padding: 0; max-height: 160px; overflow-y: auto; }
+li { display: flex; gap: 8px; align-items: flex-start; padding: 4px 0; border-top: 1px solid var(--border); }
+li .text { flex: 1; overflow-wrap: anywhere; font-size: 12px; }
+.lang { font-size: 11px; color: var(--fg-muted); margin-left: 4px; }

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ContextLens</title>
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <h1>ContextLens</h1>
+    <div class="row"><button id="theme-toggle" type="button">Theme</button><button id="open-library" type="button">Open library</button></div>
+  </header>
+  <p id="status" role="status" aria-live="polite" class="muted">Reading page…</p>
+  <main id="main" hidden>
+    <p id="page-title"></p>
+    <p id="page-url" class="muted"></p>
+    <div class="row">
+      <label for="collection">Save to</label>
+      <select id="collection"></select>
+    </div>
+    <div class="row">
+      <label for="tags">Tags</label>
+      <input id="tags" list="known-tags" placeholder="comma, separated" autocomplete="off">
+      <datalist id="known-tags"></datalist>
+    </div>
+    <div class="row">
+      <label for="note">Why it matters</label>
+      <textarea id="note" rows="2" maxlength="10000" placeholder="Add a note for your future self"></textarea>
+    </div>
+    <form id="new-collection" class="row">
+      <label for="new-name">New collection</label>
+      <input id="new-name" maxlength="100" autocomplete="off">
+      <button type="submit">Create</button>
+    </form>
+    <p id="selection-hint" class="hint muted"></p>
+    <div class="row">
+      <button id="save-page" type="button">Save page</button>
+      <button id="save-selection" type="button" aria-describedby="selection-hint">Save selection</button>
+      <button id="save-screenshot" type="button">Rectangular snip</button>
+    </div>
+    <details><summary id="code-summary"></summary><ul id="code-list"></ul></details>
+    <details><summary id="heading-summary"></summary><ul id="heading-list"></ul></details>
+    <details><summary id="link-summary"></summary><ul id="link-list"></ul></details>
+  </main>
+  <script src="popup.js"></script>
+</body>
+</html>
