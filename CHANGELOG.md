@@ -7,6 +7,7 @@ First pre-release. Not published to any store.
 ### Added
 
 - Capture pages, selections, code blocks (with language), headings and links, each with its source URL, canonical URL, title, capture time and nearest heading.
+- Extract English text locally from rectangular snips, review and edit the OCR result, then save it as a source-linked excerpt.
 - Collections, manual tags, and notes on items and collections.
 - Local search over titles, content, tags, URLs and notes, with `tag:`, `type:`, `site:` and phrase queries and result highlighting.
 - Markdown export per collection, complete JSON export, and validated import with preview and merge or replace modes.

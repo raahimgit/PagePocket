@@ -15,6 +15,8 @@ Nothing else is stored. In particular, ContextLens does not record the pages you
 
 Nothing. The extension makes no network requests, loads no remote code and includes no analytics, telemetry, crash reporting, advertising or third-party services. This is checked by an automated scan of the source and by an end-to-end test that records network traffic.
 
+Snip text recognition runs locally using OCR code and English language data packaged with the extension. The recognized text is shown for review; it is saved only when you choose **Save extracted text**.
+
 Data leaves your browser only when you choose **Export JSON backup** or **Export Markdown**, which write a file to your computer. What you do with that file is up to you.
 
 ## Permissions

@@ -39,7 +39,11 @@ async function saveSnip(tabId: number, collectionId?: string, tags: string[] = [
   try {
     const collage = await composeSnipCollage(snips.map((snip) => snip.screenshot.dataUrl));
     const saved = await openLibrary().saveScreenshot(snips[0]!.capture, collage, collectionId, tags, note);
-    return { ok: true as const, data: { created: saved.created, count: snips.length } };
+    await api.tabs.create({
+      url: api.runtime.getURL(`snip-review.html?id=${encodeURIComponent(saved.item.id)}`),
+      active: true,
+    });
+    return { ok: true as const, data: { created: saved.created, count: snips.length, itemId: saved.item.id } };
   } catch {
     return { ok: false as const, error: { code: "screenshot-failed" as const, message: "This browser could not compose the snip collage." } };
   }

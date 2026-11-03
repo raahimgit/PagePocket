@@ -59,18 +59,20 @@ async function save(spec: SaveSpec): Promise<void> {
 }
 
 async function screenshot(): Promise<void> {
+  saveScreenshot.disabled = true;
   try {
-    say("Drag a rectangle over the page to snip it…");
-    const response: Result<{ created: boolean; count: number }> = await api.runtime.sendMessage({
+    say("Select one or more rectangles on the page. Press Escape when finished.");
+    const response: Result<{ created: boolean; count: number; itemId: string }> = await api.runtime.sendMessage({
       type: "save-snip",
       collectionId: select.value || undefined,
       tags: parseTagInput(tagsInput.value),
       note: noteInput.value,
     });
     if (!response.ok) { say(response.error.message, true); return; }
-    say(`Saved one collage containing ${response.data.count} rectangular ${response.data.count === 1 ? "snip" : "snips"}.`);
   } catch (error) {
-    say(friendlyError(error, "Could not save screenshot."), true);
+    say(friendlyError(error, "Could not capture snip."), true);
+  } finally {
+    saveScreenshot.disabled = false;
   }
 }
 

@@ -1,0 +1,9 @@
+body { box-sizing: border-box; padding: 24px; }
+.review { max-width: 900px; margin: 0 auto; }
+h1 { font-size: 22px; }
+#status { min-height: 1.5em; }
+#source { overflow-wrap: anywhere; }
+#preview { display: block; max-width: 100%; max-height: 50vh; object-fit: contain; margin: 18px auto; border: 1px solid var(--border); }
+label { display: block; font-weight: 600; margin: 16px 0 6px; }
+textarea { box-sizing: border-box; width: 100%; resize: vertical; }
+.actions { display: flex; gap: 8px; margin-top: 12px; }

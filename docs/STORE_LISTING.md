@@ -15,7 +15,7 @@ ContextLens helps you keep what you read on the web together with where it came 
 Save a whole page, a selected passage, a code block (with its language when it can be detected), a heading or a link. Every item keeps its source URL, the page title, when you captured it and, when it can be determined, the heading it sat under. Organize items into collections, add tags and notes, search everything locally, and export a collection as clean Markdown or everything as a JSON backup.
 
 - No account, no server, no sync service.
-- No AI features: capture and search are deterministic.
+- No generative AI, analytics or telemetry. Snip OCR uses a packaged model and runs locally.
 - No analytics or telemetry. ContextLens makes no network requests.
 - Reads a page only when you click the toolbar button, use the keyboard shortcut or use the context menu.
 - Your data stays in your browser. You can export or delete it at any time.

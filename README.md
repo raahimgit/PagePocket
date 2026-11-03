@@ -2,7 +2,7 @@
 
 Save what you read on the web with its source attached, and keep it on your own machine.
 
-ContextLens is a browser extension for developers, researchers and students. It captures pages, selected passages, code blocks, headings and links, files each one with the page it came from, and lets you organize, search and export the result. There is no account, no server and no AI: everything is deterministic and stored locally.
+ContextLens is a browser extension for developers, researchers and students. It captures pages, selected passages, code blocks, headings and links, files each one with the page it came from, and lets you organize, search and export the result. There is no account, server or generative AI. Snip OCR uses a packaged recognition model locally; captured material stays in your browser.
 
 > **Status: pre-release (0.1.0).** ContextLens has not been submitted to or published on the Chrome Web Store or Firefox Add-ons. Install it from source (below). It has been tested in Chromium. The Firefox build compiles but has not been loaded in Firefox yet; see [Browser support](#browser-support).
 
@@ -16,7 +16,7 @@ ContextLens keeps that context. Every saved item records the page URL, the canon
 
 ## What it does
 
-- **Capture intentionally**: save the whole page, selected text, code, headings, links, or drag one or more rectangular snips from the visible tab. Snips are cropped before saving, so the selection overlay is never part of the image.
+- **Capture intentionally**: save the whole page, selected text, code, headings, links, or drag one or more rectangular snips from the visible tab. Snips are cropped before saving, so the selection overlay is never part of the image. Local English OCR can extract text from a snip; review and edit it before saving it as a source-linked excerpt.
 - **Organize** with collections, manual tags, and notes on items or on a whole collection.
 - **Search** your saved material locally across titles, content, tags, URLs and notes. Filters: `tag:name`, `type:code`, `site:example.com`, `"exact phrase"`. The last word also matches as a prefix.
 - **Move your data**: Markdown export per collection (or everything), a complete JSON backup, and a validated import with a preview and merge or replace modes. See [the data format](docs/DATA_FORMAT.md).
@@ -51,7 +51,7 @@ npm run build
 ## Using it
 
 1. On any page, click the ContextLens toolbar button (or press `Alt+Shift+L`; rebind it in your browser's extension shortcut settings).
-2. Choose a collection and optionally type tags, then **Save page**, **Save selection**, **Rectangular snip**, or **Save** next to a code block, heading or link. During a snip session, drag multiple rectangles; press `Escape` when finished. The rectangles become one collage item.
+2. Choose a collection and optionally type tags, then **Save page**, **Save selection**, **Snip & extract text**, or **Save** next to a code block, heading or link. During a snip session, drag multiple rectangles; press `Escape` when finished. The rectangles become one collage item, then an extension tab opens with locally recognized English text for review before saving it as an excerpt.
 3. Select text and right-click for **Save selection to ContextLens**. The toolbar badge shows OK or !.
 4. Open the library (the **Open library** button) to browse, search, tag, annotate, move items between collections and export.
 
@@ -95,6 +95,7 @@ src/
   background/   injection, context-menu save
   content/      on-demand content script
   extraction/   page, selection, code, link, metadata extraction (pure)
+  popup/        capture UI and local snip OCR
   library/      domain rules: save, dedupe, collections, notes, tags
   search/       tokenizer, query parser, inverted index
   portability/  Markdown export, import validation, merge planner
@@ -163,6 +164,7 @@ Nothing below is implemented.
 - Search from the popup; make collection names and collection notes searchable.
 - Undo for deletions; bulk tag editing; moving several items at once.
 - Extraction for content inside shadow roots and same-origin iframes.
+- OCR support for additional languages beyond English.
 
 ## Known limitations
 
