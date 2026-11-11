@@ -40,7 +40,7 @@ async function saveSnip(tabId: number, collectionId?: string, tags: string[] = [
     const collage = await composeSnipCollage(snips.map((snip) => snip.screenshot.dataUrl));
     const saved = await openLibrary().saveScreenshot(snips[0]!.capture, collage, collectionId, tags, note);
     await api.tabs.create({
-      url: api.runtime.getURL(`snip-review.html?id=${encodeURIComponent(saved.item.id)}`),
+      url: api.runtime.getURL(`snip-review.html?id=${encodeURIComponent(saved.item.id)}&extract=1`),
       active: true,
     });
     return { ok: true as const, data: { created: saved.created, count: snips.length, itemId: saved.item.id } };
@@ -53,7 +53,7 @@ api.runtime.onInstalled.addListener(async () => {
   await api.contextMenus.removeAll();
   api.contextMenus.create({
     id: MENU_SAVE_SELECTION,
-    title: "Save selection to ContextLens",
+    title: "Save selection to PagePocket",
     contexts: ["selection"],
   });
 });

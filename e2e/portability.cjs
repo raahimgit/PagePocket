@@ -73,7 +73,7 @@ const write = (name, data) => { const p = join(mkdtempSync(join(tmpdir(), "cl-f-
 
   console.log("--- invalid files are refused whole");
   const evil = JSON.parse(json.text); evil.items[0].source.url = "javascript:alert(1)"; evil.items[1].tags = ["???"]; evil.items.push({ id: "x" });
-  const cases = [["not JSON", write("a.json", "{nope"), "not valid JSON"], ["bad records", write("b.json", evil), "source.url"], ["newer format", write("c.json", { ...bundle, schemaVersion: 99 }), "Update ContextLens"]];
+  const cases = [["not JSON", write("a.json", "{nope"), "not valid JSON"], ["bad records", write("b.json", evil), "source.url"], ["newer format", write("c.json", { ...bundle, schemaVersion: 99 }), "Update PagePocket"]];
   for (const [label, path, expected] of cases) {
     await importFile(b.page, path);
     check(`${label}: errors listed, import disabled`, (await b.page.textContent("#import-problems")).includes(expected) && (await b.page.isDisabled("#import-confirm")));

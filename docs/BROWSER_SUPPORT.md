@@ -17,7 +17,7 @@ Status is stated as what has actually been run, not what is expected to work.
 ## Minimum versions
 
 - **Chrome 114.** This is the esbuild target, not a tested floor.
-- **Firefox 140 (desktop), 142 (Android).** Firefox requires `data_collection_permissions` for new add-ons submitted to addons.mozilla.org since 3 November 2025, and that key is understood from those versions. ContextLens declares `required: ["none"]`. Source: MDN, `browser_specific_settings`.
+- **Firefox 140 (desktop), 142 (Android).** Firefox requires `data_collection_permissions` for new add-ons submitted to addons.mozilla.org since 3 November 2025, and that key is understood from those versions. PagePocket declares `required: ["none"]`. Source: MDN, `browser_specific_settings`.
 
 ## Differences handled in code
 
@@ -32,7 +32,7 @@ Status is stated as what has actually been run, not what is expected to work.
 
 1. `about:debugging` > This Firefox > Load Temporary Add-on > `dist/firefox/manifest.json`.
 2. Open a documentation page, click the toolbar button, save a page, a selection and a code block.
-3. Right-click a selection > "Save selection to ContextLens"; the toolbar badge should show OK.
+3. Right-click a selection > "Save selection to PagePocket"; the toolbar badge should show OK.
 4. Open the library: search, tag, add a note, move an item to a collection.
 5. Export JSON and Markdown; import the JSON into a fresh profile.
 6. Try `about:preferences` and `addons.mozilla.org`: the popup should say the page cannot be captured.

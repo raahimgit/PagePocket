@@ -42,7 +42,7 @@ describe("parseBundle", () => {
   );
 
   it("refuses files from a newer format", () => {
-    expect(errorsFor({ ...valid(), schemaVersion: 2 })[0]).toContain("Update ContextLens");
+    expect(errorsFor({ ...valid(), schemaVersion: 2 })[0]).toContain("Update PagePocket");
   });
 
   it("refuses oversized input", () => {

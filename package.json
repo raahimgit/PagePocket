@@ -1,9 +1,9 @@
 {
-  "name": "contextlens",
+  "name": "pagepocket",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Privacy-first research capture for developers. Local-only, source-preserving.",
+  "description": "Private library for saved pages, snippets and screenshots.",
   "license": "MIT",
   "scripts": {
     "build": "node scripts/build.mjs chrome && node scripts/build.mjs firefox",

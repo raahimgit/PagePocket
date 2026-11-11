@@ -8,7 +8,7 @@ import { createZip } from "./zip.mjs";
 const SOURCE_DIRS = ["src", "scripts", "assets", "docs", "tests", "e2e", ".github"];
 const SOURCE_FILES = [
   "package.json", "tsconfig.json", "tsconfig.test.json", "vitest.config.ts", "README.md", "LICENSE", "CHANGELOG.md",
-  "CONTRIBUTING.md", "PRIVACY.md", "SECURITY.md", ".gitignore",
+  "CONTRIBUTING.md", "PRIVACY.md", "SECURITY.md", ".gitignore", "PagePocket logo.png",
 ];
 
 async function walk(dir, base = dir) {
@@ -53,7 +53,7 @@ for (const target of targets) {
     for (const file of SOURCE_FILES) {
       try { await stat(file); names.push(file); } catch { /* file is optional */ }
     }
-    await write(`contextlens-source-${pkg.version}.zip`, await entriesFor(".", [...new Set(names)]));
+    await write(`pagepocket-source-${pkg.version}.zip`, await entriesFor(".", [...new Set(names)]));
     continue;
   }
 
@@ -70,5 +70,5 @@ for (const target of targets) {
     console.error(`Refusing to package ${target}:`);
     fail(problems);
   }
-  await write(`contextlens-${target}-${pkg.version}.zip`, await entriesFor(dir, files));
+  await write(`pagepocket-${target}-${pkg.version}.zip`, await entriesFor(dir, files));
 }

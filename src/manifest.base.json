@@ -1,11 +1,14 @@
 {
   "manifest_version": 3,
-  "name": "ContextLens",
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self';"
+  },
+  "name": "PagePocket",
   "version": "0.1.0",
-  "description": "Capture pages, selections and code with their sources intact. Local-only research notebook.",
+  "description": "Save pages, snippets and screenshots with their sources. Search and organize them privately.",
   "action": {
     "default_popup": "popup.html",
-    "default_title": "ContextLens",
+    "default_title": "PagePocket",
     "default_icon": {
       "16": "icons/icon-16.png",
       "32": "icons/icon-32.png"
@@ -32,7 +35,7 @@
       "suggested_key": {
         "default": "Alt+Shift+L"
       },
-      "description": "Open ContextLens"
+      "description": "Open PagePocket"
     }
   }
 }

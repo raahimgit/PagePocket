@@ -1,21 +1,21 @@
 # Privacy
 
-*Applies to ContextLens 0.1.0.*
+*Applies to PagePocket 0.1.0.*
 
-ContextLens runs entirely in your browser. Its developers receive no data from it, because it never sends any.
+PagePocket runs entirely in your browser. Its developers receive no data from it, because it never sends any.
 
 ## What it stores, and where
 
-- **Items you save:** the page URL, canonical URL if the page declares one, page title, the text, code, heading or link you chose to save, the time you saved it, the heading it appeared under, plus any tags, notes and collection names you add. Stored in the browser's IndexedDB for this extension, on your device.
+- **Items you save:** the page URL, canonical URL if the page declares one, page title, the text, code, heading, link or screenshot you chose to save, the time you saved it, the heading it appeared under, plus any tags, notes and collection names you add. Stored in the browser's IndexedDB for this extension, on your device.
 - **One setting:** the id of the collection you used last, in the extension's local storage.
 
-Nothing else is stored. In particular, ContextLens does not record the pages you visit. A page is read only when you click the toolbar button, press its shortcut, or use the context menu, and what was read is discarded unless you press a save button.
+Nothing else is stored. In particular, PagePocket does not record the pages you visit. A page is read only when you click the toolbar button, press its shortcut, or use the context menu, and what was read is discarded unless you press a save button.
 
 ## What it sends
 
 Nothing. The extension makes no network requests, loads no remote code and includes no analytics, telemetry, crash reporting, advertising or third-party services. This is checked by an automated scan of the source and by an end-to-end test that records network traffic.
 
-Snip text recognition runs locally using OCR code and English language data packaged with the extension. The recognized text is shown for review; it is saved only when you choose **Save extracted text**.
+Snip text recognition runs locally using OCR code and English language data packaged with the extension. The recognized text is shown for review; it is saved as a note on that screenshot only when you choose **Save extracted text**.
 
 Data leaves your browser only when you choose **Export JSON backup** or **Export Markdown**, which write a file to your computer. What you do with that file is up to you.
 
@@ -26,9 +26,9 @@ Data leaves your browser only when you choose **Export JSON backup** or **Export
 | `activeTab` | Read the current page, only after you act. |
 | `scripting` | Run the extraction script on that page. |
 | `storage` | Remember the last-used collection and theme preference. |
-| `contextMenus` | Add "Save selection to ContextLens". |
+| `contextMenus` | Add "Save selection to PagePocket". |
 
-ContextLens requests no access to all sites, your history, bookmarks, cookies, downloads or network traffic.
+PagePocket requests no access to all sites, your history, bookmarks, cookies, downloads or network traffic.
 
 ## Control and deletion
 
@@ -36,7 +36,7 @@ You can delete any item, note or collection in the library, export everything at
 
 ## Captured content
 
-Text you save comes from other people's pages and remains theirs. ContextLens keeps the source URL and title with every item, and Markdown exports state that the content belongs to its original authors, so that captured material is not mistaken for your own writing. You are responsible for how you use what you save.
+Text you save comes from other people's pages and remains theirs. PagePocket keeps the source URL and title with every item, and Markdown exports state that the content belongs to its original authors, so that captured material is not mistaken for your own writing. You are responsible for how you use what you save.
 
 ## Changes
 

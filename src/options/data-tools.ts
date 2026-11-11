@@ -17,7 +17,7 @@ export function initDataTools(deps: DataToolsDeps): void {
 
   $("export-json").addEventListener("click", () => void guarded(async () => {
     const bundle = await deps.library.exportBundle();
-    downloadText(`contextlens-backup-${today()}.json`, JSON.stringify(bundle, null, 2), "application/json");
+    downloadText(`pagepocket-backup-${today()}.json`, JSON.stringify(bundle, null, 2), "application/json");
     say(`Exported ${plural(bundle.items.length, "item")}, ${plural(bundle.notes.length, "note")} and ${plural(bundle.collections.length, "collection")}.`);
   }));
 

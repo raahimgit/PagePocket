@@ -223,10 +223,10 @@ export function validateBundle(raw: unknown): ParseResult {
 
   let version = raw.schemaVersion;
   if (typeof version !== "number" || !Number.isInteger(version) || version < 1) {
-    return { ok: false, errors: ["schemaVersion is missing or invalid. This does not look like a ContextLens export."] };
+    return { ok: false, errors: ["schemaVersion is missing or invalid. This does not look like a PagePocket export."] };
   }
   if (version > SCHEMA_VERSION) {
-    return { ok: false, errors: [`This file uses format version ${version}; this build understands up to ${SCHEMA_VERSION}. Update ContextLens to import it.`] };
+    return { ok: false, errors: [`This file uses format version ${version}; this build understands up to ${SCHEMA_VERSION}. Update PagePocket to import it.`] };
   }
   let data: Rec = raw;
   while (version < SCHEMA_VERSION) {

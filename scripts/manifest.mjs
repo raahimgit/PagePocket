@@ -5,7 +5,7 @@ import { resolve } from "node:path";
 // 3 Nov 2025). The key is understood from Firefox 140 (desktop) and 142
 // (Android), so those become the minimum versions.
 // Run from the repository root.
-export async function buildManifest(target, { geckoId = process.env.GECKO_ID ?? "contextlens@REPLACE-BEFORE-RELEASE" } = {}) {
+export async function buildManifest(target, { geckoId = process.env.GECKO_ID ?? "pagepocket@REPLACE-BEFORE-RELEASE" } = {}) {
   const manifest = JSON.parse(await readFile(resolve("src/manifest.base.json"), "utf8"));
   if (target === "chrome") {
     manifest.background = { service_worker: "background.js" };

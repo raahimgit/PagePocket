@@ -30,9 +30,9 @@
 - `activeTab`: read the current tab only after the user clicks the toolbar button or a context-menu entry.
 - `scripting`: inject the extraction script on demand.
 - `storage`: remember the last-used collection and theme (`storage.local`). Saved research lives in IndexedDB, which needs no permission.
-- `contextMenus`: the "Save selection to ContextLens" entry.
+- `contextMenus`: the "Save selection to PagePocket" entry.
 
-Rectangular snips use a page overlay plus the browser visible-tab screenshot API. Each selected viewport rectangle is cropped, and a session's rectangles are composed into one two-column collage before it is stored. The background opens a review tab after capture, where local English OCR runs using the packaged Tesseract.js worker, WASM core, and traineddata; recognized text is shown for review and can be saved as a separate source-linked excerpt. No OCR data is sent over the network. Browser restrictions still apply: extension pages, protected viewers, cross-origin limitations, and full-page capture are not universally available. Collages are stored locally as first-class screenshot items alongside excerpts, with tags and notes.
+Rectangular snips use a page overlay plus the browser visible-tab screenshot API. Each selected viewport rectangle is cropped, and a session's rectangles are composed into one two-column collage before it is stored. The single **Snip or extract text** action opens a review tab after capture. OCR runs locally using the packaged Tesseract.js worker, WASM core, and traineddata; recognized text is shown for review and can be saved as a separate source-linked excerpt. No OCR data is sent over the network. Browser restrictions still apply: extension pages, protected viewers, cross-origin limitations, and full-page capture are not universally available. Collages are stored locally as first-class screenshot items alongside excerpts, with tags and notes.
 
 Export uses a Blob download from the options page and import reads a user-chosen file, so neither needs the `downloads` permission or any file access permission.
 

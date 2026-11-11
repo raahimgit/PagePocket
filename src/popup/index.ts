@@ -3,12 +3,11 @@ import { friendlyError } from "../library/errors";
 import type { SaveSpec } from "../library/library";
 import { parseTagInput } from "../library/tags";
 import { h } from "../shared/dom";
-import { plural } from "../shared/format";
 import type { Result } from "../shared/messages";
 import type { PageCapture } from "../shared/types";
 import { loadSettings, saveSettings } from "../storage/settings";
 import { api } from "../shared/api";
-import { applySavedTheme, toggleTheme, updateThemeButton } from "../shared/theme";
+import { applySavedTheme, toggleTheme } from "../shared/theme";
 
 const library = openLibrary();
 const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
@@ -20,6 +19,8 @@ const tagsInput = $<HTMLInputElement>("tags");
 const savePage = $<HTMLButtonElement>("save-page");
 const saveSelection = $<HTMLButtonElement>("save-selection");
 const saveScreenshot = $<HTMLButtonElement>("save-screenshot");
+const footer = $("capture-footer");
+const tagChips = $("tag-chips");
 const noteInput = $<HTMLTextAreaElement>("note");
 const themeToggle = $<HTMLButtonElement>("theme-toggle");
 const NONE = "";
@@ -30,6 +31,7 @@ const WHAT: Record<SaveSpec["kind"], string> = {
 
 let capture: PageCapture;
 let announcements = 0;
+let selectedTags: string[] = [];
 
 function say(message: string, isError = false): void {
   status.textContent = message ? message + (announcements++ % 2 ? "\u00a0" : "") : "";
@@ -49,13 +51,35 @@ async function refreshCollections(selectedId?: string): Promise<void> {
 async function save(spec: SaveSpec): Promise<void> {
   try {
     const collectionId = select.value || undefined;
-    const { created } = await library.save(capture, spec, collectionId, parseTagInput(tagsInput.value), noteInput.value);
+    const { created } = await library.save(capture, spec, collectionId, getTags(), noteInput.value);
     await saveSettings({ lastCollectionId: collectionId });
     const where = collectionId ? ` to ${select.selectedOptions[0]?.textContent ?? "collection"}` : "";
     say(created ? `Saved ${WHAT[spec.kind]}${where}.` : `This ${WHAT[spec.kind]} was already saved${where ? "; added to the collection" : ""}.`);
   } catch (error) {
     say(friendlyError(error, "Could not save."), true);
   }
+}
+
+function getTags(): string[] {
+  return [...new Set([...selectedTags, ...parseTagInput(tagsInput.value)])];
+}
+
+function renderTags(): void {
+  tagChips.replaceChildren(...selectedTags.map((tag) =>
+    h("span", { class: "tag-chip" }, tag,
+      h("button", {
+        type: "button",
+        "aria-label": `Remove tag ${tag}`,
+        onclick: () => { selectedTags = selectedTags.filter((item) => item !== tag); renderTags(); },
+      }, "×")),
+  ));
+}
+
+function addTags(value = tagsInput.value): void {
+  const incoming = parseTagInput(value);
+  selectedTags = [...new Set([...selectedTags, ...incoming])];
+  tagsInput.value = "";
+  renderTags();
 }
 
 async function screenshot(): Promise<void> {
@@ -65,7 +89,7 @@ async function screenshot(): Promise<void> {
     const response: Result<{ created: boolean; count: number; itemId: string }> = await api.runtime.sendMessage({
       type: "save-snip",
       collectionId: select.value || undefined,
-      tags: parseTagInput(tagsInput.value),
+      tags: getTags(),
       note: noteInput.value,
     });
     if (!response.ok) { say(response.error.message, true); return; }
@@ -83,7 +107,9 @@ function fillList(
   entries: { text: string; hint?: string; spec: SaveSpec }[],
 ): void {
   const summary = $(summaryId);
-  summary.textContent = plural(entries.length, noun);
+  const singularLabel = noun === "heading" ? "heading detected" : noun === "link" ? "link detected" : noun;
+  const pluralLabel = noun === "heading" ? "headings detected" : noun === "link" ? "links detected" : `${noun}s`;
+  summary.textContent = entries.length === 1 ? `1 ${singularLabel}` : `${entries.length} ${pluralLabel}`;
   summary.parentElement!.hidden = entries.length === 0;
   $(listId).replaceChildren(
     ...entries.map((entry) =>
@@ -112,6 +138,7 @@ function render(): void {
     capture.links.map((x, index) => ({ text: x.text, spec: { kind: "link", index } })));
 
   main.hidden = false;
+  footer.hidden = false;
   say(capture.warnings.length ? `Captured with warnings: ${capture.warnings.join("; ")}` : "");
   primary.focus();
 }
@@ -119,16 +146,42 @@ function render(): void {
 savePage.addEventListener("click", () => void save({ kind: "page" }));
 saveSelection.addEventListener("click", () => void save({ kind: "selection" }));
 saveScreenshot.addEventListener("click", () => void screenshot());
-void applySavedTheme().then((theme) => updateThemeButton(themeToggle, theme));
-themeToggle.addEventListener("click", () => void toggleTheme().then((theme) => updateThemeButton(themeToggle, theme)));
 tagsInput.addEventListener("keydown", (event) => {
-  if (event.key !== "Enter") return;
-  event.preventDefault();
-  void save(capture.selection ? { kind: "selection" } : { kind: "page" });
+  if (event.key === "Enter" || event.key === ",") {
+    event.preventDefault();
+    addTags();
+  }
 });
+tagsInput.addEventListener("input", () => {
+  if (!tagsInput.value.includes(",")) return;
+  addTags();
+});
+$("new-collection-toggle").addEventListener("click", () => {
+  const form = $<HTMLFormElement>("new-collection");
+  form.hidden = !form.hidden;
+  $("new-collection-toggle").setAttribute("aria-expanded", String(!form.hidden));
+  if (!form.hidden) $<HTMLInputElement>("new-name").focus();
+});
+document.addEventListener("keydown", (event) => {
+  if (!event.altKey) return;
+  const target = event.target;
+  if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement) return;
+  const key = event.key.toLowerCase();
+  if (key === "s") { event.preventDefault(); void screenshot(); }
+});
+function setPopupThemeButton(theme: "light" | "dark"): void {
+  themeToggle.innerHTML = theme === "dark"
+    ? '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>'
+    : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 15.2A8.5 8.5 0 0 1 8.8 3.5 8.5 8.5 0 1 0 20.5 15.2Z"/></svg>';
+  themeToggle.setAttribute("aria-label", `Switch to ${theme === "dark" ? "light" : "dark"} theme`);
+  themeToggle.title = `Switch to ${theme === "dark" ? "light" : "dark"} theme`;
+  themeToggle.setAttribute("aria-pressed", String(theme === "dark"));
+}
 
+void applySavedTheme().then(setPopupThemeButton);
+themeToggle.addEventListener("click", () => void toggleTheme().then(setPopupThemeButton));
 $("open-library").addEventListener("click", () => {
-  void api.runtime.openOptionsPage();
+    void api.runtime.openOptionsPage();
   window.close();
 });
 

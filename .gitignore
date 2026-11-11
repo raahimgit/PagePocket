@@ -2,3 +2,24 @@ node_modules
 dist
 *.zip
 release
+
+# Local secrets and machine-specific configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Editor, OS, and generated test output
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+coverage/
+playwright-report/
+test-results/
+
+# Alternate logo export; the PNG is the source used to generate extension icons.
+PagePocket logos.jpg

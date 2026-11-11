@@ -3,47 +3,60 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ContextLens</title>
+  <title>PagePocket</title>
   <link rel="stylesheet" href="base.css">
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-  <header>
-    <h1>ContextLens</h1>
-    <div class="row"><button id="theme-toggle" type="button">Theme</button><button id="open-library" type="button">Open library</button></div>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true"></span><h1>PagePocket</h1></div>
+    <div class="top-actions"><button id="theme-toggle" type="button" aria-label="Change theme"></button><button id="open-library" class="library-button" type="button">Library</button></div>
   </header>
-  <p id="status" role="status" aria-live="polite" class="muted">Reading page…</p>
+  <p id="status" role="status" aria-live="polite" class="status-line">Reading page…</p>
   <main id="main" hidden>
-    <p id="page-title"></p>
-    <p id="page-url" class="muted"></p>
-    <div class="row">
-      <label for="collection">Save to</label>
+    <section class="context-card" aria-labelledby="context-label">
+      <div class="context-heading"><p id="context-label" class="eyebrow">Current context</p><span class="active-pill"><span aria-hidden="true"></span>Active tab</span></div>
+      <p id="page-title" class="page-title"></p>
+      <p id="page-url" class="page-url"></p>
+    </section>
+
+    <div class="capture-actions" aria-label="Capture actions">
+      <button id="save-screenshot" class="action-button snip-button" type="button" title="Snip an area and extract its text (Alt+S)"><span>Snip or extract text</span><kbd class="key-hint">Alt+S</kbd></button>
+    </div>
+
+    <section class="settings-section collection-section">
+      <div class="field-heading"><label for="collection">Save to collection</label><button id="new-collection-toggle" class="text-button" type="button" aria-expanded="false" aria-controls="new-collection">New collection</button></div>
       <select id="collection"></select>
-    </div>
-    <div class="row">
-      <label for="tags">Tags</label>
-      <input id="tags" list="known-tags" placeholder="comma, separated" autocomplete="off">
-      <datalist id="known-tags"></datalist>
-    </div>
-    <div class="row">
+      <form id="new-collection" class="new-collection" hidden>
+        <label class="sr-only" for="new-name">Collection name</label>
+        <input id="new-name" maxlength="100" autocomplete="off" placeholder="Collection name">
+        <button type="submit">Create</button>
+      </form>
+    </section>
+
+    <section class="settings-section">
+      <div class="field-heading"><label for="tags">Tags</label><span class="field-hint">Press Enter to add</span></div>
+      <div class="tag-control"><div id="tag-chips" class="tag-chips" aria-live="polite"></div><input id="tags" list="known-tags" placeholder="Add a tag…" autocomplete="off"><datalist id="known-tags"></datalist></div>
+    </section>
+
+    <section class="settings-section note-section">
       <label for="note">Why it matters</label>
       <textarea id="note" rows="2" maxlength="10000" placeholder="Add a note for your future self"></textarea>
-    </div>
-    <form id="new-collection" class="row">
-      <label for="new-name">New collection</label>
-      <input id="new-name" maxlength="100" autocomplete="off">
-      <button type="submit">Create</button>
-    </form>
-    <p id="selection-hint" class="hint muted"></p>
-    <div class="row">
-      <button id="save-page" type="button">Save page</button>
-      <button id="save-selection" type="button" aria-describedby="selection-hint">Save selection</button>
-      <button id="save-screenshot" type="button">Snip &amp; extract text</button>
-    </div>
-    <details><summary id="code-summary"></summary><ul id="code-list"></ul></details>
-    <details><summary id="heading-summary"></summary><ul id="heading-list"></ul></details>
-    <details><summary id="link-summary"></summary><ul id="link-list"></ul></details>
+    </section>
+
+    <section class="insights" aria-labelledby="insights-title">
+      <h2 id="insights-title" class="eyebrow">Page insights</h2>
+      <details class="insight-card"><summary id="heading-summary"></summary><ul id="heading-list"></ul></details>
+      <details class="insight-card"><summary id="link-summary"></summary><ul id="link-list"></ul></details>
+      <details class="insight-card"><summary id="code-summary"></summary><ul id="code-list"></ul></details>
+    </section>
   </main>
+
+  <footer id="capture-footer" hidden>
+    <button id="save-page" class="footer-button save-page-button" type="button">Save page</button>
+    <button id="save-selection" class="footer-button save-selection-button" type="button" aria-describedby="selection-hint">Save selection</button>
+    <span id="selection-hint" class="sr-only"></span>
+  </footer>
   <script src="popup.js"></script>
 </body>
 </html>

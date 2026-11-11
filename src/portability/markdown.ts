@@ -89,10 +89,10 @@ function itemBlock(item: Item, notes: Note[]): string[] {
 }
 
 export function renderMarkdown(input: MarkdownInput): string {
-  const out: string[] = [`# ${escapeInline(input.scope?.name ?? "ContextLens export")}`, ""];
+  const out: string[] = [`# ${escapeInline(input.scope?.name ?? "PagePocket export")}`, ""];
   if (input.scope?.description) out.push(blockquote(input.scope.description), "");
   out.push(
-    `_Exported from ContextLens on ${day(input.exportedAt)}. Excerpts, code and links below were captured from the sources listed and remain the work of their original authors._`,
+    `_Exported from PagePocket on ${day(input.exportedAt)}. Excerpts, code and links below were captured from the sources listed and remain the work of their original authors._`,
     "",
   );
 
@@ -142,5 +142,5 @@ export function slugify(name: string): string {
     .replace(/^-+|-+$/g, "")
     .slice(0, 60)
     .replace(/-+$/g, "");
-  return slug || "contextlens";
+  return slug || "pagepocket";
 }

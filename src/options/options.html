@@ -3,35 +3,44 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ContextLens library</title>
+  <title>PagePocket library</title>
   <link rel="stylesheet" href="base.css">
   <link rel="stylesheet" href="options.css">
 </head>
 <body>
-  <header>
-    <h1>ContextLens</h1>
-    <button id="theme-toggle" type="button">Theme</button>
-    <p class="tagline muted">Everything is stored locally in this browser. Nothing is sent anywhere.</p>
+  <header class="app-header">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <div><h1>PagePocket</h1><p class="tagline">Save pages and snippets for later</p></div>
+    </div>
+    <div class="header-tools">
+      <p class="privacy-chip"><span aria-hidden="true"></span>Stored only in this browser</p>
+      <button id="theme-toggle" type="button">Theme</button>
+    </div>
   </header>
-  <p id="status" role="status" aria-live="polite" class="muted"></p>
+  <p id="status" role="status" aria-live="polite" class="status-banner muted"></p>
 
   <div class="layout">
-    <nav aria-label="Library">
-      <h2 class="side-heading">Collections</h2>
-      <ul id="collections"></ul>
-      <form id="new-collection" class="row">
+    <aside class="sidebar">
+      <nav aria-label="Collections">
+        <h2 class="side-heading">Collections</h2>
+        <ul id="collections"></ul>
+      </nav>
+      <form id="new-collection" class="new-collection-form">
         <label for="new-name" class="sr-only">New collection name</label>
         <input id="new-name" placeholder="New collection" maxlength="100" autocomplete="off">
-        <button type="submit">Add</button>
+        <button type="submit" aria-label="Add collection">Add</button>
       </form>
-      <h2 class="side-heading">Tags</h2>
-      <ul id="tags"></ul>
-    </nav>
+      <section class="tag-section" aria-labelledby="tags-heading">
+        <h2 id="tags-heading" class="side-heading">Tags</h2>
+        <ul id="tags"></ul>
+      </section>
+    </aside>
 
-    <main>
+    <main class="library-main">
       <details id="data-tools">
         <summary>Backup, export and import</summary>
-        <div class="row" role="group" aria-label="Backup and export">
+        <div class="row data-actions" role="group" aria-label="Backup and export">
           <button id="export-json" type="button">Export JSON backup</button>
           <button id="export-md" type="button">Export Markdown</button>
           <label for="import-file">Import backup</label>
@@ -44,7 +53,7 @@
           <div id="import-summary"></div>
           <fieldset id="import-modes">
             <legend>How to import</legend>
-            <label><input type="radio" name="import-mode" value="merge" checked> Merge into existing data (nothing is overwritten)</label><br>
+            <label><input type="radio" name="import-mode" value="merge" checked> Merge into existing data (nothing is overwritten)</label>
             <label><input type="radio" name="import-mode" value="replace"> Replace everything with the file</label>
           </fieldset>
           <div class="row">
@@ -54,23 +63,27 @@
         </section>
       </details>
 
-      <form id="search" role="search" class="row">
-        <label for="query" class="sr-only">Search saved items</label>
-        <input id="query" type="search" placeholder="Search saved items" autocomplete="off">
-      </form>
-      <p class="hint muted">Press <kbd>/</kbd> to search. Filters: <code>tag:name</code> <code>type:code</code> <code>site:example.com</code> <code>"exact phrase"</code></p>
+      <section class="search-section" aria-label="Search your library">
+        <form id="search" role="search" class="search-form">
+          <label for="query" class="sr-only">Search saved items</label>
+          <span class="search-mark" aria-hidden="true"></span>
+          <input id="query" type="search" placeholder="Search saved items" autocomplete="off">
+          <kbd>/</kbd>
+        </form>
+        <p class="hint muted">Filter with <code>tag:name</code>, <code>type:code</code>, <code>site:example.com</code>, or <code>"exact phrase"</code>.</p>
+      </section>
 
-      <h2 id="results-heading" tabindex="-1">All items</h2>
-      <p id="result-count" role="status" aria-live="polite" class="meta muted"></p>
-
-      <div id="collection-tools" class="collection-tools row" hidden>
+      <div class="results-toolbar">
+        <div><h2 id="results-heading" tabindex="-1">All items</h2><p id="result-count" role="status" aria-live="polite" class="meta muted"></p></div>
+      </div>
+      <div id="collection-tools" class="collection-tools" hidden>
         <label for="rename">Collection name</label>
         <input id="rename" maxlength="100" autocomplete="off">
         <button id="rename-btn" type="button">Rename</button>
-        <button id="delete-btn" type="button">Delete collection</button>
+        <button id="delete-btn" class="danger-button" type="button">Delete collection</button>
       </div>
       <div id="collection-notes"></div>
-      <div id="items"></div>
+      <div id="items" class="items-grid"></div>
     </main>
   </div>
   <script src="options.js"></script>

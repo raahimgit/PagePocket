@@ -73,8 +73,8 @@ describe("storage failures", () => {
 describe("friendlyError", () => {
   it.each([
     [new LibraryError("not-found", "Item not found"), "Item not found"],
-    [new DOMException("x", "QuotaExceededError"), "Browser storage for ContextLens is full. Export a backup, then delete items you no longer need."],
-    [new DOMException("x", "InvalidStateError"), "Browser storage is unavailable right now. Close other ContextLens tabs and try again."],
+    [new DOMException("x", "QuotaExceededError"), "Browser storage for PagePocket is full. Export a backup, then delete items you no longer need."],
+    [new DOMException("x", "InvalidStateError"), "Browser storage is unavailable right now. Close other PagePocket tabs and try again."],
     [new Error("anything else"), "Something went wrong."],
     [null, "Something went wrong."],
     ["a string", "Something went wrong."],

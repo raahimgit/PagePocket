@@ -28,7 +28,8 @@ describe.each(["chrome", "firefox"] as const)("%s manifest", (target) => {
 
   it("does not loosen the content security policy", async () => {
     const csp = JSON.stringify((await load()).content_security_policy ?? "");
-    expect(csp).not.toContain("unsafe-eval");
+    expect(csp).toContain("wasm-unsafe-eval");
+    expect(csp).not.toContain("'unsafe-eval'");
     expect(csp).not.toContain("unsafe-inline");
     expect(csp).not.toContain("http");
   });

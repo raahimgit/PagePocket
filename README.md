@@ -1,10 +1,10 @@
-# ContextLens
+# PagePocket
 
 Save what you read on the web with its source attached, and keep it on your own machine.
 
-ContextLens is a browser extension for developers, researchers and students. It captures pages, selected passages, code blocks, headings and links, files each one with the page it came from, and lets you organize, search and export the result. There is no account, server or generative AI. Snip OCR uses a packaged recognition model locally; captured material stays in your browser.
+PagePocket is a browser extension for developers, researchers and students. It captures pages, selected passages, code blocks, headings and links, files each one with the page it came from, and lets you organize, search and export the result. There is no account, server or generative AI. Snip OCR uses a packaged recognition model locally; captured material stays in your browser.
 
-> **Status: pre-release (0.1.0).** ContextLens has not been submitted to or published on the Chrome Web Store or Firefox Add-ons. Install it from source (below). It has been tested in Chromium. The Firefox build compiles but has not been loaded in Firefox yet; see [Browser support](#browser-support).
+> **Status: pre-release (0.1.0).** PagePocket has not been submitted to or published on the Chrome Web Store or Firefox Add-ons. Install it from source (below). It has been tested in Chromium. The Firefox build compiles but has not been loaded in Firefox yet; see [Browser support](#browser-support).
 
 ![The library view with a collection, tags and notes](docs/screenshots/library.png)
 
@@ -12,11 +12,11 @@ ContextLens is a browser extension for developers, researchers and students. It 
 
 Research on the web ends up scattered: a tab you meant to come back to, a snippet pasted into a notes file with no URL, a bookmark with no memory of why you saved it. Later you have the text but not where it came from, which section it sat under, or when you read it.
 
-ContextLens keeps that context. Every saved item records the page URL, the canonical URL when the page declares one, the page title, the time of capture and, when it can be determined, the heading the passage sat under. Markdown exports state that the content belongs to its original authors, so a collection never reads as your own writing.
+PagePocket keeps that context. Every saved item records the page URL, the canonical URL when the page declares one, the page title, the time of capture and, when it can be determined, the heading the passage sat under. Markdown exports state that the content belongs to its original authors, so a collection never reads as your own writing.
 
 ## What it does
 
-- **Capture intentionally**: save the whole page, selected text, code, headings, links, or drag one or more rectangular snips from the visible tab. Snips are cropped before saving, so the selection overlay is never part of the image. Local English OCR can extract text from a snip; review and edit it before saving it as a source-linked excerpt.
+- **Capture intentionally**: save the whole page, selected text, code, headings, links, or drag one or more rectangular snips from the visible tab. Snips are cropped before saving, so the selection overlay is never part of the image. Local English OCR extracts text from a snip; review and edit it, then save it with the screenshot as a searchable note.
 - **Organize** with collections, manual tags, and notes on items or on a whole collection.
 - **Search** your saved material locally across titles, content, tags, URLs and notes. Filters: `tag:name`, `type:code`, `site:example.com`, `"exact phrase"`. The last word also matches as a prefix.
 - **Move your data**: Markdown export per collection (or everything), a complete JSON backup, and a validated import with a preview and merge or replace modes. See [the data format](docs/DATA_FORMAT.md).
@@ -39,7 +39,7 @@ Requires Node.js 20 or newer.
 
 ```sh
 git clone <this repository>
-cd contextlens
+cd <repository-folder>
 npm install
 npm run build
 ```
@@ -50,9 +50,9 @@ npm run build
 
 ## Using it
 
-1. On any page, click the ContextLens toolbar button (or press `Alt+Shift+L`; rebind it in your browser's extension shortcut settings).
-2. Choose a collection and optionally type tags, then **Save page**, **Save selection**, **Snip & extract text**, or **Save** next to a code block, heading or link. During a snip session, drag multiple rectangles; press `Escape` when finished. The rectangles become one collage item, then an extension tab opens with locally recognized English text for review before saving it as an excerpt.
-3. Select text and right-click for **Save selection to ContextLens**. The toolbar badge shows OK or !.
+1. On any page, click the PagePocket toolbar button (or press `Alt+Shift+L`; rebind it in your browser's extension shortcut settings).
+2. Choose a collection and add tags or a note. Select **Snip or extract text**, drag one or more rectangles, then press `Escape` when finished. PagePocket saves the screenshot and opens a review page with the locally recognized English text. Edit and save the text to keep it with that screenshot in your library. **Save page** and **Save selection** stay available in the popup footer.
+3. Select text and right-click for **Save selection to PagePocket**. The toolbar badge shows OK or !.
 4. Open the library (the **Open library** button) to browse, search, tag, annotate, move items between collections and export.
 
 | Where | Key | Action |
@@ -62,11 +62,12 @@ npm run build
 | Library | `Enter` in a tag field | Add the tags |
 | Library | `Ctrl/Cmd+Enter` in a note | Save the note |
 | Library | `Esc` while editing a note | Cancel |
-| Popup | `Enter` in the tags field | Save the selection, or the page when nothing is selected |
+| Popup | `Alt+S` | Snip and extract text |
+| Popup | `Enter` in the tags field | Add the typed tag |
 
 ## Privacy
 
-- ContextLens makes **no network requests**. The extension source is scanned for network and code-injection APIs on every test run, and an end-to-end test records every request made by the extension and the pages it ran in. Neither found any.
+- PagePocket makes **no network requests**. The extension source is scanned for network and code-injection APIs on every test run, and an end-to-end test records every request made by the extension and the pages it ran in. Neither found any.
 - Everything you save is stored in your browser's IndexedDB. The only other thing stored is the id of the collection you used last, in the extension's local storage.
 - No telemetry, no analytics, no accounts, no cloud service.
 - It reads a page only when you ask: the content script is injected when you click the toolbar button or use the context menu, and nothing is stored until you press a save button. It does not collect or keep browsing history.
@@ -82,7 +83,7 @@ The full statement is in [PRIVACY.md](PRIVACY.md).
 | `activeTab` | Read the current page only after you click the toolbar button, use the keyboard shortcut or the context menu. |
 | `scripting` | Inject the extraction script into that page on demand. |
 | `storage` | Remember the last-used collection and light/dark theme. Saved research lives in IndexedDB, which needs no permission. |
-| `contextMenus` | The "Save selection to ContextLens" entry. |
+| `contextMenus` | The "Save selection to PagePocket" entry. |
 
 Not requested: host permissions, `tabs`, `history`, `bookmarks`, `downloads`, `cookies`, `webRequest`, or any always-on content script. A test asserts this exact set for both browsers and fails if it changes.
 
@@ -142,7 +143,7 @@ npm run check        # typecheck, tests, build both browsers
 ## Releasing
 
 ```sh
-npm run package:chrome                        # release/contextlens-chrome-<version>.zip
+npm run package:chrome                        # release/pagepocket-chrome-<version>.zip
 GECKO_ID=your-id@example.org npm run package:firefox
 npm run package:source                        # source archive for add-on review
 ```

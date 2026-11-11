@@ -93,7 +93,7 @@ describe("renderMarkdown", () => {
 });
 
 describe("slugify", () => {
-  it.each([["PostgreSQL Research", "postgresql-research"], ["  Café / Notes!! ", "cafe-notes"], ["???", "contextlens"], ["", "contextlens"]])(
+  it.each([["PostgreSQL Research", "postgresql-research"], ["  Café / Notes!! ", "cafe-notes"], ["???", "pagepocket"], ["", "pagepocket"]])(
     "%s",
     (input, expected) => expect(slugify(input)).toBe(expected),
   );

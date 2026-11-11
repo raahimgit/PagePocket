@@ -62,7 +62,7 @@ describe("documentation", () => {
 
   it("versions agree across package, changelog and privacy statement", () => {
     expect(read("CHANGELOG.md")).toContain(`## ${pkg.version}`);
-    expect(/ContextLens (\d+\.\d+\.\d+)/.exec(read("PRIVACY.md"))?.[1]).toBe(pkg.version);
+    expect(/PagePocket (\d+\.\d+\.\d+)/.exec(read("PRIVACY.md"))?.[1]).toBe(pkg.version);
   });
 
   it("store copy matches the manifest and its limits", async () => {

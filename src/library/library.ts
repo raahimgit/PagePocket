@@ -276,7 +276,7 @@ export class Library {
     const exportedAt = this.now().toISOString();
     if (!collectionId) {
       const [items, notes] = await Promise.all([this.repo.listItems(), this.repo.listNotes()]);
-      return { text: renderMarkdown({ scope: null, collectionNotes: [], items, notes, exportedAt }), filename: "contextlens-all.md" };
+      return { text: renderMarkdown({ scope: null, collectionNotes: [], items, notes, exportedAt }), filename: "pagepocket-all.md" };
     }
     const collection = await this.requireCollection(collectionId);
     const [all, notes, collectionNotes] = await Promise.all([

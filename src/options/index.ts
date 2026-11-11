@@ -63,7 +63,7 @@ async function render(): Promise<void> {
     ? `No matches for “${state.query.trim()}”. Try fewer words, or remove filters such as tag: or site:.`
     : selected
       ? "This collection is empty. Save something from a page, or add an existing item to it."
-      : "Nothing saved yet. Open ContextLens from the toolbar on any page to save the page, a selection, or a code block.";
+      : "Nothing saved yet. Open PagePocket from the toolbar on any page to save the page, a selection, or a code block.";
   $("items").replaceChildren(
     ...(items.length ? items.map((i) => renderItem(ctx, i, notesFor(allNotes, "item", i.id))) : [h("p", { class: "empty" }, empty)]),
   );

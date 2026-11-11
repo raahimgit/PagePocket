@@ -20,7 +20,7 @@ export function idbSpecific(label: string, makeFactory: () => IDBFactory, unique
         const request = factory.open(name, 2);
         request.onsuccess = () => resolve(request.result);
         request.onerror = () => reject(request.error);
-        request.onblocked = () => reject(new Error("upgrade was blocked by an open ContextLens connection"));
+        request.onblocked = () => reject(new Error("upgrade was blocked by an open PagePocket connection"));
       });
       upgraded.close();
       expect(upgraded.version).toBe(2);

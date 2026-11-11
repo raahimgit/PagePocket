@@ -11,10 +11,10 @@ export function friendlyError(error: unknown, fallback = "Something went wrong."
   if (error instanceof LibraryError) return error.message;
   const name = (error as { name?: unknown } | null)?.name;
   if (name === "QuotaExceededError") {
-    return "Browser storage for ContextLens is full. Export a backup, then delete items you no longer need.";
+    return "Browser storage for PagePocket is full. Export a backup, then delete items you no longer need.";
   }
   if (name === "InvalidStateError" || name === "SecurityError" || name === "UnknownError") {
-    return "Browser storage is unavailable right now. Close other ContextLens tabs and try again.";
+    return "Browser storage is unavailable right now. Close other PagePocket tabs and try again.";
   }
   return fallback;
 }
