@@ -51,7 +51,7 @@ const FAKE = { ok: true, data: { source: page, metadata: {}, warnings: [],
   await o.click('[data-key="nav:__all__"]'); await o.fill("#query", "snapshot tag:isolation"); await o.waitForTimeout(400);
   await o.screenshot({ path: `${OUT}/search.png` });
 
-  await o.fill("#query", ""); await o.click('[data-key="nav:c1"]'); await o.emulateMedia({ colorScheme: "dark" }); await o.waitForTimeout(300);
+  await o.fill("#query", ""); await o.click('[data-key="nav:c1"]'); await o.emulateMedia({ colorScheme: "dark" }); await o.waitForTimeout(100); const themeButton = o.locator("#theme-toggle"); if ((await themeButton.textContent())?.toLowerCase().includes("dark")) await themeButton.click(); await o.waitForFunction(() => document.documentElement.dataset.theme === "dark"); await o.waitForTimeout(300);
   await o.screenshot({ path: `${OUT}/library-dark.png` });
 
   const p = await app.context.newPage();
