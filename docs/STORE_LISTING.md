@@ -49,7 +49,7 @@ Text you save belongs to its original authors. PagePocket keeps the source with 
 
 ## Screenshots
 
-`docs/screenshots` holds 1280x800 images generated from the real extension with invented content (`npm run screenshots`): `library.png`, `search.png`, `library-dark.png`. `popup.png` is the popup at its native size and must be placed on a 1280x800 canvas before it can be used as a Chrome Web Store screenshot. The Chrome small promotional tile (440x280) has not been made.
+`docs/screenshots` holds current captures from the real extension. For Edge listing screenshots, use `Image-1-store.png` (the provided popup capture padded to 1280x800), `Image-2.png` (library), `Image-3.png` (search), and `Image-4.png` (dark library). `Image-1.png` is preserved at its original 635x742 size; the store-ready version is 1280x800. `library.png`, `search.png`, and `library-dark.png` are the underlying current captures; `popup.png` is the native-size popup capture.
 
 ## Pre-submission checklist
 
