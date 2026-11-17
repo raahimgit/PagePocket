@@ -4,7 +4,7 @@ Save what you read on the web with its source attached, and keep it on your own 
 
 PagePocket is a browser extension for developers, researchers and students. It captures pages, selected passages, code blocks, headings and links, files each one with the page it came from, and lets you organize, search and export the result. There is no account, server or generative AI. Snip OCR uses a packaged recognition model locally; captured material stays in your browser.
 
-> **Status: pre-release (0.1.0).** PagePocket has not been submitted to or published on the Chrome Web Store or Firefox Add-ons. Install it from source (below). It has been tested in Chromium. The Firefox build compiles but has not been loaded in Firefox yet; see [Browser support](#browser-support).
+> **Available now:** Install PagePocket from the [Microsoft Edge Add-ons store](https://microsoftedge.microsoft.com/addons/detail/pagepocket/hbkejlhgegkakcdacdhnpmieonlbkklc) or [Firefox Add-ons](https://addons.mozilla.org/addon/pagepocket-raahimirl/). A Chrome Web Store listing is not currently available.
 
 ![The library view with a collection, tags and notes](docs/screenshots/library.png)
 
@@ -33,7 +33,18 @@ The screenshots use invented example content on `example.org` hosts.
 
 Not a chatbot, not an LLM wrapper, not a sync service and not a bookmark manager with accounts. It does not summarize, rewrite or "understand" what you save. If a deterministic browser API can do the job, that is what it uses.
 
-## Install from source
+## Install
+
+### Edge and Firefox
+
+- **Microsoft Edge:** [Get PagePocket from Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/pagepocket/hbkejlhgegkakcdacdhnpmieonlbkklc).
+- **Firefox:** [Get PagePocket from Firefox Add-ons](https://addons.mozilla.org/addon/pagepocket-raahimirl/).
+
+### Other Chromium-based browsers
+
+Download the latest `pagepocket-chrome-<version>.zip` from [GitHub Releases](https://github.com/raahimgit/contextlens/releases), extract it, open the browser's extensions page, enable Developer mode, and choose **Load unpacked** (or its equivalent) to select the extracted folder. This requires a browser that supports unpacked Chromium extensions. Direct installs are free and may need to be repeated after installing a newer release.
+
+### Build from source
 
 Requires Node.js 20 or newer.
 
@@ -44,7 +55,7 @@ npm install
 npm run build
 ```
 
-**Chrome, Edge, Brave and other Chromium browsers:** open `chrome://extensions`, enable Developer mode, choose Load unpacked, and select `dist/chrome`.
+**Chrome, Edge, Brave and other Chromium browsers:** open `chrome://extensions` (or the equivalent page), enable Developer mode, choose Load unpacked, and select `dist/chrome`.
 
 **Firefox:** open `about:debugging#/runtime/this-firefox`, choose Load Temporary Add-on, and select `dist/firefox/manifest.json`. Temporary add-ons are removed when Firefox restarts. The Firefox build uses a placeholder add-on id until you set `GECKO_ID` (see [Releasing](#releasing)).
 
@@ -148,7 +159,7 @@ GECKO_ID=your-id@example.org npm run package:firefox
 npm run package:source                        # source archive for add-on review
 ```
 
-The packaging script verifies the file set, the version, the exact permission set and the description length, and **refuses to package the Firefox build while the add-on id is still a placeholder**. Zips are deterministic: the same source produces the same bytes. Drafts for store listings and a pre-submission checklist are in [docs/STORE_LISTING.md](docs/STORE_LISTING.md); nothing has been submitted.
+The packaging script verifies the file set, the version, the exact permission set and the description length, and **refuses to package the Firefox build while the add-on id is still a placeholder**. Zips are deterministic: the same source produces the same bytes. See [docs/STORE_LISTING.md](docs/STORE_LISTING.md) for listing and reviewer details.
 
 ## Contributing
 
@@ -156,10 +167,7 @@ Contributions are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) first; the sh
 
 ## Roadmap
 
-Nothing below is implemented.
-
-- Load the Firefox build in Firefox, run `web-ext lint`, and fix what turns up.
-- Store submissions, after Firefox is verified.
+Future improvements are tracked in the project issue list.
 - A keyboard command that saves the current selection without opening the popup.
 - Incremental search index updates (a full rebuild per change is fine to a few thousand items).
 - Search from the popup; make collection names and collection notes searchable.

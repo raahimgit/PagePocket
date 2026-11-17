@@ -1,18 +1,19 @@
 # Browser support
 
-Status is stated as what has actually been run, not what is expected to work.
+Store links below indicate distribution availability; testing details remain specific to the checks performed in this repository.
 
 | Area | Chrome / Chromium | Firefox |
 |---|---|---|
 | Builds (`npm run build`) | Verified | Verified (produces `dist/firefox`) |
-| Loads as an extension | Verified (Chromium, unpacked) | **Not run** |
-| Manifest passes `web-ext lint` | n/a | **Not run** (needs network to install; runs in CI) |
+| Store listing | [Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/pagepocket/hbkejlhgegkakcdacdhnpmieonlbkklc) | [Firefox Add-ons](https://addons.mozilla.org/addon/pagepocket-raahimirl/) |
+| Loads as an extension | Verified (Chromium, unpacked) | Available from Firefox Add-ons; manual checks below are recommended when testing changes |
+| Manifest passes `web-ext lint` | n/a | Validation passed on AMO upload |
 | Extraction logic | Verified in Chromium against realistic page fixtures | **Not run** (Gecko DOM) |
 | Popup, options page, search, export and import | Verified in Chromium (`npm run e2e`) | **Not run** |
 | On-demand injection through `activeTab` | **Not automatable.** Verified with a test-only build that adds host permissions; the real user-gesture grant has been checked by nobody yet | **Not run** |
 | Context-menu save | Logic unit-tested; the menu click itself is not automatable | **Not run** |
 
-"Chromium-based browsers" (Edge, Brave, Opera, Vivaldi) share the Chrome manifest and APIs and are expected to work. None has been tried.
+Edge distributes PagePocket through its add-ons store. Other Chromium-based browsers may use the Chrome release ZIP via their **Load unpacked** developer mode if supported. Browser-specific behavior can vary; use the store listing where available.
 
 ## Minimum versions
 

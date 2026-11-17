@@ -1,6 +1,6 @@
 # Store listing drafts
 
-**PagePocket has not been submitted to the Chrome Web Store or Firefox Add-ons, and nothing here has been reviewed by either.** These are drafts to adapt when the checklist at the end is done.
+PagePocket is available from the [Microsoft Edge Add-ons store](https://microsoftedge.microsoft.com/addons/detail/pagepocket/hbkejlhgegkakcdacdhnpmieonlbkklc) and [Firefox Add-ons](https://addons.mozilla.org/addon/pagepocket-raahimirl/). A Chrome Web Store listing is not currently available.
 
 ## Name and summary
 
@@ -36,14 +36,15 @@ Text you save belongs to its original authors. PagePocket keeps the source with 
 
 ## Firefox Add-ons (AMO)
 
+- **Firefox add-on ID for the new listing:** `{6f0fdf9b-981d-44ed-a840-5d0a3e9a3402}`. Keep this exact ID for every future Firefox update.
 - **Data collection declaration:** the manifest declares `data_collection_permissions: { required: ["none"] }`, as Mozilla requires for new add-ons.
 - **Source code submission:** the package is bundled with esbuild, so reviewers need the source. Run `npm run package:source` and upload `release/pagepocket-source-<version>.zip`.
 - **Build instructions for reviewers:**
   ```
-  npm install
+  npm ci
   GECKO_ID=<the add-on id> npm run build:firefox
   ```
-  The output in `dist/firefox` should match the submitted package. Zips from `npm run package:firefox` are deterministic.
+  Use Node.js 20 or newer and the Gecko add-on ID shown for this listing in AMO. In PowerShell, set it first with `$env:GECKO_ID = "<the add-on id>"`. The output in `dist/firefox` should match the submitted package. The source archive includes `package-lock.json` so `npm ci` installs the locked dependency versions. Zips from `npm run package:firefox` are deterministic.
 - **Notes for reviewers:** there is no account or test data. Open any article, click the toolbar button, choose "Save page" or select text and choose "Save selection", then open the library with "Open library". The extension makes no network requests; `tests/privacy.test.ts` and the `capture` end-to-end suite check this.
 - **License:** MIT.
 

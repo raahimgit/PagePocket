@@ -7,7 +7,7 @@ import { createZip } from "./zip.mjs";
 
 const SOURCE_DIRS = ["src", "scripts", "assets", "docs", "tests", "e2e", ".github"];
 const SOURCE_FILES = [
-  "package.json", "tsconfig.json", "tsconfig.test.json", "vitest.config.ts", "README.md", "LICENSE", "CHANGELOG.md",
+  "package.json", "package-lock.json", "tsconfig.json", "tsconfig.test.json", "vitest.config.ts", "README.md", "LICENSE", "CHANGELOG.md",
   "CONTRIBUTING.md", "PRIVACY.md", "SECURITY.md", ".gitignore", "PagePocket logo.png",
 ];
 
